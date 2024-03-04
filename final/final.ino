@@ -111,13 +111,13 @@ void loop()
   {
     antiBounce1 = millis();
     if (command + modifier <= 180) command += modifier;  // On ajoute le modifier à la commande si sa valeur est différente de 180
-    else command += -360 + modifier;                // Si il est déjà à 180 deg, on le met à -165 (= -180 + modifier)
+    else command += -360 + modifier; // Si le résultat dépasse 180 deg, on effectue la soustraction pour que l'angle matche (= -180 + le restant du modifier)
   }
   if (!(buttons & 0x02) && (millis() - antiBounce2 > antiBounceTime)) // Si le bouton 2 ("DOWN") est enfoncé et que le debounce est passé
   {
     antiBounce2 = millis();
     if (command - modifier >= -180) command -= modifier; // On retire le modifier à la commande si sa valeur est différente de -180
-    else command = 360 - abs(command) - modifier;                 // Si il est déjà à -180 deg, on le met à 165 (= 180 - modifier)
+    else command = 360 - abs(command) - modifier; // Si le résultat est sous -180 deg, on effectue l'addition pour que l'angle matche (= 180 - le restant du modifier)
   }
   if (!(buttons & 0x04) && (millis() - antiBounce3 > antiBounceTime)) // Si le bouton 3 ("modifier") est enfoncé et que le debounce est passé
   {
